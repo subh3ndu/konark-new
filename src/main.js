@@ -56,7 +56,7 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 gltfLoader.load(
-  'konark/temple.glb',
+  '/temple.glb',
   (glb) => {
     const model = glb.scene
 
@@ -110,7 +110,7 @@ const rgbeLoader = new RGBELoader()
 const pmremGenerator = new THREE.PMREMGenerator(renderer)
 pmremGenerator.compileEquirectangularShader()
 
-rgbeLoader.load('/konark/cloudy.hdr', (texture) => {
+rgbeLoader.load('/cloudy.hdr', (texture) => {
   // (texture)
   const envMap = pmremGenerator.fromEquirectangular(texture)
   texture.mapping = THREE.EquirectangularReflectionMapping
