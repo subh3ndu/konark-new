@@ -56,7 +56,7 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 gltfLoader.load(
-  `${import.meta.env.BASE_URL}/models/temple.glb`,
+  `/models/temple.glb`,
   (glb) => {
     const model = glb.scene
 
@@ -110,25 +110,22 @@ const rgbeLoader = new RGBELoader()
 const pmremGenerator = new THREE.PMREMGenerator(renderer)
 pmremGenerator.compileEquirectangularShader()
 
-rgbeLoader.load(
-  `${import.meta.env.BASE_URL}/textures/cloudy.hdr`,
-  (texture) => {
-    // (texture)
-    const envMap = pmremGenerator.fromEquirectangular(texture)
-    texture.mapping = THREE.EquirectangularReflectionMapping
+rgbeLoader.load(`/textures/cloudy.hdr`, (texture) => {
+  // (texture)
+  const envMap = pmremGenerator.fromEquirectangular(texture)
+  texture.mapping = THREE.EquirectangularReflectionMapping
 
-    scene.background = texture
-    scene.environment = envMap //envMap
+  scene.background = texture
+  scene.environment = envMap //envMap
 
-    texture.dispose()
-    pmremGenerator.dispose()
-    // const envMap = pmremGenerator.fromEquirectangular(texture).texture
-    // scene.background = texture // Set HDRI as the background
-    // scene.environment = envMap // Set HDRI as the environment map for reflections
-    // texture.dispose() // Clean up
-    // pmremGenerator.dispose() // Clean up
-  }
-)
+  texture.dispose()
+  pmremGenerator.dispose()
+  // const envMap = pmremGenerator.fromEquirectangular(texture).texture
+  // scene.background = texture // Set HDRI as the background
+  // scene.environment = envMap // Set HDRI as the environment map for reflections
+  // texture.dispose() // Clean up
+  // pmremGenerator.dispose() // Clean up
+})
 
 /*
  * Resize & Double-click
