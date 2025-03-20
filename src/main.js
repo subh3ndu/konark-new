@@ -50,13 +50,13 @@ const dracoLoader = new DRACOLoader()
 dracoLoader.setDecoderPath(
   'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
 )
-// dracoLoader.setDecoderConfig({ type: 'js' })
+dracoLoader.setDecoderConfig({ type: 'js' })
 
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 gltfLoader.load(
-  `/models/temple.glb`,
+  `/temple.glb`,
   (gltf) => {
     console.log('gltf loaded successfully...')
 
@@ -112,7 +112,7 @@ const rgbeLoader = new RGBELoader()
 const pmremGenerator = new THREE.PMREMGenerator(renderer)
 pmremGenerator.compileEquirectangularShader()
 
-rgbeLoader.load(`/textures/cloudy.hdr`, (texture) => {
+rgbeLoader.load(`/cloudy.hdr`, (texture) => {
   // (texture)
   const envMap = pmremGenerator.fromEquirectangular(texture)
   texture.mapping = THREE.EquirectangularReflectionMapping
