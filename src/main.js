@@ -57,8 +57,10 @@ gltfLoader.setDRACOLoader(dracoLoader)
 
 gltfLoader.load(
   `/models/temple.glb`,
-  (glb) => {
-    const model = glb.scene
+  (gltf) => {
+    console.log('gltf loaded successfully...')
+
+    const model = gltf.scene
 
     model.traverse((child) => {
       if (child.isMesh) {
@@ -75,7 +77,9 @@ gltfLoader.load(
 
     scene.add(model)
   },
-  null,
+  (progress) => {
+    console.log('loading...')
+  },
   (err) => {
     console.error('error: ', err)
   }
