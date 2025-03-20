@@ -56,7 +56,7 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 gltfLoader.load(
-  `/temple.glb`,
+  'dist/temple.glb',
   (gltf) => {
     console.log('gltf loaded successfully...')
 
