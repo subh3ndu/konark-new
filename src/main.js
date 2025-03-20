@@ -50,7 +50,7 @@ const dracoLoader = new DRACOLoader()
 dracoLoader.setDecoderPath(
   'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
 )
-dracoLoader.setDecoderConfig({ type: 'js' })
+// dracoLoader.setDecoderConfig({ type: 'js' })
 
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
