@@ -56,7 +56,7 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 gltfLoader.load(
-  '/temple.glb',
+  `${import.meta.env.BASE_URL}/temple.glb`,
   (glb) => {
     const model = glb.scene
 
@@ -110,7 +110,7 @@ const rgbeLoader = new RGBELoader()
 const pmremGenerator = new THREE.PMREMGenerator(renderer)
 pmremGenerator.compileEquirectangularShader()
 
-rgbeLoader.load('/cloudy.hdr', (texture) => {
+rgbeLoader.load(`${import.meta.env.BASE_URL}/cloudy.hdr`, (texture) => {
   // (texture)
   const envMap = pmremGenerator.fromEquirectangular(texture)
   texture.mapping = THREE.EquirectangularReflectionMapping
