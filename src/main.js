@@ -77,11 +77,8 @@ gltfLoader.load(
 
     scene.add(model)
   },
-  (progress) => {
-    console.log('loading...')
-  },
   (err) => {
-    console.error('error: ', err)
+    console.error('Unable to load temple.glb: ', err)
   }
 )
 
