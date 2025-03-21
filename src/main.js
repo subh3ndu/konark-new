@@ -1,9 +1,9 @@
 import * as THREE from 'three'
+import * as draco from 'draco3d'
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-import { Timer } from 'three/addons/misc/Timer'
 import './style.css'
 
 const canvas = {
@@ -27,9 +27,9 @@ const controls = new OrbitControls(camera, canvas.dom)
 controls.autoRotate = true
 controls.autoRotateSpeed = 0.5
 controls.enableDamping = true
-controls.enablePan = false
-controls.minDistance = 16
-controls.maxDistance = 36
+// controls.enablePan = false
+// controls.minDistance = 16
+// controls.maxDistance = 36
 controls.minPolarAngle = 0.2
 controls.maxPolarAngle = Math.PI / 2.2
 
@@ -46,41 +46,47 @@ scene.add(ambientLight, directionalLight)
 /*
  * Konark
  */
-const dracoLoader = new DRACOLoader()
-dracoLoader.setDecoderPath(
-  'https://www.gstatic.com/draco/versioned/decoders/1.5.7/'
-)
-dracoLoader.setDecoderConfig({ type: 'js' })
+let model = null
+const loader = new GLTFLoader()
 
-const gltfLoader = new GLTFLoader()
-gltfLoader.setDRACOLoader(dracoLoader)
-
-gltfLoader.load(
-  'dist/temple.glb',
-  (gltf) => {
-    console.log('gltf loaded successfully...')
-
-    const model = gltf.scene
-
-    model.traverse((child) => {
-      if (child.isMesh) {
-        child.material.envMapIntensity = 0.5 // Lower intensity
-      }
-    })
+loader.load(
+  'konark_8k.glb',
+  (glb) => {
+    model = glb.scene
 
     model.position.set(0, 0, 0)
-    model.scale.setScalar(1)
-
-    // const box = new THREE.Box3().setFromObject(model)
-    // const bottomY = box.min.y
-    // model.position.y -= bottomY
+    model.scale.set(1, 1, 1)
+    model.rotation.set(0, 0, 0)
 
     scene.add(model)
   },
-  null,
-  (err) => {
-    console.error('Unable to load temple.glb: ', err)
-  }
+  (progress) => {
+    // console.log(
+    //   'Loading progress:',
+    //   (progress.loaded / progress.total) * 100 + '%'
+    // )
+  },
+  (err) => console.error(err.error)
+)
+
+loader.load(
+  'konark_texture_reprojected_8k_6.glb',
+  (glb) => {
+    model = glb.scene
+
+    model.position.set(0, 0, 0)
+    model.scale.set(1, 1, 1)
+    model.rotation.set(0, 0, 0)
+
+    scene.add(model)
+  },
+  (progress) => {
+    // console.log(
+    //   'Loading progress:',
+    //   (progress.loaded / progress.total) * 100 + '%'
+    // )
+  },
+  (err) => console.error(err.error)
 )
 
 /*
@@ -96,11 +102,7 @@ renderer.physicallyCorrectLights = true
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.5
 
-const timer = new Timer()
-
 renderer.setAnimationLoop((ts) => {
-  const _delta = timer.getDelta()
-
   controls.update()
   renderer.render(scene, camera)
 })
