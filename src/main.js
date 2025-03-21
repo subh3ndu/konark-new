@@ -70,7 +70,7 @@ loader.load(
 )
 
 loader.load(
-  'konark_texture_reprojected_8k_6.glb',
+  'models/konark_texture_reprojected_8k.glb',
   (glb) => {
     model = glb.scene
 
