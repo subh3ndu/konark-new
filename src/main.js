@@ -1,7 +1,5 @@
 import * as THREE from 'three'
-import * as draco from 'draco3d'
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import './style.css'
